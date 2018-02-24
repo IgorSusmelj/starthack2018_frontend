@@ -3,12 +3,136 @@
   <head>
     <title>Flask Intro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" type=text/css href="{{ url_for('static',filename='styles/home_fonts.css') }}">
+       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
+
+  <style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+
   <body>
     <div class="container">
-      <h1>Welcome to Flask!</h1>
-      <br>
-      <p>Click <a href="/">here</a> to go home.</p>
+
+        <header>
+   <h1>IMPROVU</h1>
+        </header>
+
+        <div class="row">
+
+            <!-- 1 row -->
+            <div class="col-sm-6">
+
+                <h1>Improve your Text</h1>
+                <h2>Enter your text</h2>
+          <form action='/improve' method="post" role="form">
+
+          <textarea name="input_text" rows="20" cols="50" placeholder= "Enter your text here" >
+          </textarea>
+
+            <!-- process button -->
+
+          <button id="process" type="button">Process your text!</button>
+
+         </form>
+
+
+            </div>
+
+
+            <!-- 2 row -->
+            <div class="col-sm-6">
+
+                <h2>your result</h2>
+            <form action='/' method="post" role="form">
+
+          <textarea id="output_text" name="output_text" rows="20" cols="50" placeholder="Your result">
+          </textarea>
+
+            </form>
+
+
+            </div>
+
+</div>
+
     </div>
+
+
+  <script>
+  // A $( document ).ready() block.
+$( document ).ready(function() {
+    $("#process").click(function(){
+     // alert( $("#input_text" ).val());
+      // var posting = $.post( '/improve', { unprocessed_text: $("#input_text" ).val() } );
+
+
+        $.ajax({
+            url: '/improve',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                $("#output_text").val(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+  });
+
+  </script>
+
+
+
   </body>
 </html>

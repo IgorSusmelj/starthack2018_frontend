@@ -1,5 +1,6 @@
 # import the Flask class from the flask module
-from flask import Flask, render_template
+from flask import Flask, render_template, abort, request
+
 
 # create the application object
 app = Flask(__name__)
@@ -9,9 +10,10 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')  # return a string
 
-@app.route('/welcome')
-def welcome():
-    return render_template('welcome.html')  # render a template
+@app.route('/improve', methods=['POST'])
+def improve():
+    return request.form['input_text']
+
 
 # start the server with the 'run()' method
 if __name__ == '__main__':
