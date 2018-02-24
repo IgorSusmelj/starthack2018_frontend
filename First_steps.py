@@ -32,22 +32,22 @@ y_test = np.ones((10000, 1))
 
 
 
-#fix random seed for reproducibility
-np.random.seed(7)
-# load the dataset but only keep the top n words, zero the rest
-# # truncate and pad input sequences
-max_review_length = 500
-x_train = sequence.pad_sequences(x_train, maxlen=max_review_length)
-x_test = sequence.pad_sequences(x_test, maxlen=max_review_length)
-# create the model
-embedding_vecor_length = 32
-model = Sequential()
-model.add(Embedding(top_words, embedding_vecor_length, input_length=max_review_length))
-# model.add(LSTM(100))
-# model.add(Dense(1, activation='sigmoid'))
-# model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-# print(model.summary())
-# model.fit(X_train, y_train, nb_epoch=3, batch_size=64)
-# # Final evaluation of the model
-# scores = model.evaluate(X_test, y_test, verbose=0)
-# print("Accuracy: %.2f%%" % (scores[1]*100))
+# #fix random seed for reproducibility
+# np.random.seed(7)
+# # load the dataset but only keep the top n words, zero the rest
+# # # truncate and pad input sequences
+# max_review_length = 500
+# x_train = sequence.pad_sequences(x_train, maxlen=max_review_length)
+# x_test = sequence.pad_sequences(x_test, maxlen=max_review_length)
+# # create the model
+# embedding_vecor_length = 32
+# model = Sequential()
+# model.add(Embedding(top_words, embedding_vecor_length, input_length=max_review_length))
+# # model.add(LSTM(100))
+# # model.add(Dense(1, activation='sigmoid'))
+# # model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+# # print(model.summary())
+# # model.fit(X_train, y_train, nb_epoch=3, batch_size=64)
+# # # Final evaluation of the model
+# # scores = model.evaluate(X_test, y_test, verbose=0)
+# # print("Accuracy: %.2f%%" % (scores[1]*100))
