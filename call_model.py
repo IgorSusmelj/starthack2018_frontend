@@ -34,7 +34,8 @@ import os
 
 tokenizer = pickle.load( open( "tokenizer.pkl", "rb" ) )
 
-your_text = ["How to add variable in Python, Stackoverflow, variable, code, function"]
+your_text = ["Police Headquarters to answer for the sharpest crime rise in the city this year. And across the Bronx, investigative resources are squeezed. It has the highest "]
+
 
 your_text = tokenizer.texts_to_matrix(your_text, mode='binary')
 

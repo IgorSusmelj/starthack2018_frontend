@@ -44,8 +44,8 @@ def strip_tags(html):
 data_raw_nyt = pd.read_csv("Data/articles1.csv")
 data_raw_pyso = pd.read_csv("Data/Answers.csv", encoding = 'iso-8859-1')
 
-data_content_pyso_x = data_raw_pyso['Body'].tolist()[:50000]
-data_content_nyt_x = data_raw_nyt['content'].tolist()
+data_content_pyso_x = data_raw_pyso['Body'].tolist()[:20000]
+data_content_nyt_x = data_raw_nyt['content'].tolist()[:20000]
 data_content_pyso_y = [0]*len(data_content_pyso_x)
 data_content_nyt_y = [1]*len(data_content_nyt_x)
 
@@ -80,7 +80,7 @@ x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=
 
 #load the dataset but only keep the top n words, zero the rest
 # # # truncate and pad input sequences
-top_words = 100000
+top_words = 200
 #max_review_length = 500
 x_train = sequence.pad_sequences(x_train, maxlen=max_review_length, )
 x_test = sequence.pad_sequences(x_test, maxlen=max_review_length)
@@ -88,7 +88,7 @@ x_test = sequence.pad_sequences(x_test, maxlen=max_review_length)
 embedding_vector_length = 32
 model = Sequential()
 model.add(Embedding(top_words, embedding_vector_length, input_length=max_review_length))
-model.add(LSTM(100))
+model.add(LSTM(100, dropout_W = 0.2))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 print(model.summary())
