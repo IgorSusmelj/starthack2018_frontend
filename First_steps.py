@@ -7,6 +7,8 @@ import re
 import h5py
 from html.parser import HTMLParser
 from keras.preprocessing.text import Tokenizer
+import pickle
+
 
 from keras.models import Sequential
 from keras.layers import Dense
@@ -53,9 +55,10 @@ for i in range(len(data_content_pyso_x)):
 x_train = data_content_pyso_x + data_content_nyt_x
 y_train = data_content_pyso_y + data_content_nyt_y
 
+max_review_length = 500
 # We create a tokenizer, configured to only take
 # into account the top-1000 most common on words
-tokenizer = Tokenizer(num_words=1000)
+tokenizer = Tokenizer(num_words=max_review_length)
 # This builds the word index
 tokenizer.fit_on_texts(x_train)
 
@@ -68,14 +71,17 @@ tokenizer.fit_on_texts(x_train)
 x_train = tokenizer.texts_to_matrix(x_train, mode='binary')
 #data_content_pyso_y = tokenizer.texts_to_matrix(data_content_pyso_y, mode='binary')
 
-x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=0.50, random_state=42)
+with open('tokenizer.pkl', 'wb') as f:
+    pickle.dump(tokenizer, f, pickle.HIGHEST_PROTOCOL)
+
+x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=0.20, random_state=42)
 
 #fix random seed for reproducibility
 
 #load the dataset but only keep the top n words, zero the rest
 # # # truncate and pad input sequences
 top_words = 100000
-max_review_length = 500
+#max_review_length = 500
 x_train = sequence.pad_sequences(x_train, maxlen=max_review_length, )
 x_test = sequence.pad_sequences(x_test, maxlen=max_review_length)
 # create the model
