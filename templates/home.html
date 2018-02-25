@@ -28,13 +28,6 @@ div.container {
     border: 1px solid gray;
 }
 
-header, footer {
-    padding: 1em;
-    color: white;
-    background-color: black;
-    clear: left;
-    text-align: center;
-}
 
 nav {
     float: left;
@@ -63,23 +56,71 @@ article {
   <body>
     <div class="container">
 
-        <header>
-   <h1>IMPROVU</h1>
-        </header>
 
+
+<!-- 1 Row -->
         <div class="row">
 
-            <!-- 1 row -->
+            <header>
+                <h1>improveYOU</h1>
+
+                <br>
+
+                <br>
+
+                <br>
+
+                <h1>analyse your text and get immediate feedback</h1>
+        </header>
+
+            <!-- Title -->
             <div class="col-sm-6">
 
-                <h1>Improve your Text</h1>
-                <h2>Enter your text</h2>
-          <form action='/improve' method="post" role="form">
+                <br>
+                <br>
 
-          <textarea name="input_text" rows="20" cols="50" placeholder= "Enter your text here" >
-          </textarea>
+                <p>Hi there,
+                </p>
+                <br>
+                <p> improveYOU allows you to analyze the</p>
+                <br>
+                <h2>Enter your text:</h2>
+
+                <br>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <h2>Your result:</h2>
+
+            </div>
+
+        </div>
+
+        <!-- 2 Row -->
+        <div class="row">
+
+            <!-- 1 Col -->
+            <div class="col-sm-6">
+
+                <form action='/improve' method="post" role="form">
+
+          <textarea id="input_text" name="input_text" rows="20" cols="50" placeholder= "Enter your text here" ></textarea>
+
+                    <p>WordsCount:<span id="counter">0</span></p>
 
             <!-- process button -->
+
+                    <br>
 
           <button id="process" type="button">Process your text!</button>
 
@@ -89,19 +130,36 @@ article {
             </div>
 
 
-            <!-- 2 row -->
+            <!-- 2 col -->
             <div class="col-sm-6">
 
-                <h2>your result</h2>
             <form action='/' method="post" role="form">
 
-          <textarea id="output_text" name="output_text" rows="20" cols="50" placeholder="Your result">
-          </textarea>
+          <textarea id="output_text" name="output_text" rows="20" cols="50" placeholder="Your result"></textarea>
 
             </form>
 
 
             </div>
+    </div>
+
+        <!-- 3 Row -->
+
+        <!-- 1 Col -->
+        <div class="col-sm-6">
+
+            <br>
+
+        </div>
+
+        <!-- 2 Col -->
+            <div class="col-sm-6">
+
+                <h2>TED:</h2>
+                <h2>New York Times:</h2>
+                <h2>Stackoverflow</h2>
+
+
 
 </div>
 
@@ -109,7 +167,7 @@ article {
 
 
   <script>
-  // A $( document ).ready() block.
+  // jquerry
 $( document ).ready(function() {
     $("#process").click(function(){
      // alert( $("#input_text" ).val());
@@ -130,9 +188,43 @@ $( document ).ready(function() {
     });
   });
 
+// word count
+function countWords(tx){
+  return tx?tx.replace(/ +/g," ").replace(/\w+| $|^ /g,"").length+1:0;
+}
+
+$tester = $("#input_text");
+$tester.keyup(function(e){
+  $("#counter").text($tester.countWords());
+});
+
+$.fn.countWords = function(){
+ return countWords(this.val()) ;
+};
+
+// auto expand
+var textarea = document.querySelector('input_text');
+
+textarea.addEventListener('keydown', autosize);
+
+function autosize(){
+  var el = this;
+  setTimeout(function(){
+    el.style.cssText = 'height:auto; padding:0';
+    // for box-sizing other than "content-box" use:
+    // el.style.cssText = '-moz-box-sizing:content-box';
+    el.style.cssText = 'height:' + el.scrollHeight + 'px';
+  },0);
+}
+
+
   </script>
 
-
+  <footer>
+  <p>Posted by: Random Forrest Raccoons</p>
+  <p>Contact information: <a href="mailto:manfred.beluga@gmail.com">
+  manfred.beluga@gmail.com</a>.</p>
+</footer>
 
   </body>
 </html>
